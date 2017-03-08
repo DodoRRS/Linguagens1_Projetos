@@ -33,7 +33,9 @@ public class Conta {
 
     }
 
-    void transferirDinheiro() {
+    void transferirDinheiro(Conta n) {
+        
+        
 
     }
 }
