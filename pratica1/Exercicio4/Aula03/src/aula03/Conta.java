@@ -3,9 +3,8 @@ package aula03;
 public class Conta {
 
     int numero;
-    String titular;
+    Cliente titular;
     double saldo;
-    String cfp;
 
     void visualizarSaldo() {
 
@@ -23,19 +22,34 @@ public class Conta {
 
     }
 
-    void sacar(double value) {
+    boolean sacar(double value) {
 
         if (value <= this.saldo) {
             this.saldo = this.saldo - value;
+            return true;
         } else {
-            System.out.println("Seja mais humilde!");
+            return false;
         }
 
     }
 
-    void transferirDinheiro(Conta n) {
-        
-        
+    void transferirPara(double valor, Conta n) {
+
+        if (valor <= this.saldo) {
+            this.saldo = this.saldo - valor;
+            n.saldo = n.saldo + valor;
+            System.out.println("Transferido!");
+        } else {
+            System.out.println("Você não tem dinheiro!");
+        }
+
+    }
+    
+    void visualizarConta() {
+
+        this.titular.visualizarCliente();
+        System.out.println("Número da Conta: " + this.numero);
+        System.out.println("Saldo= " + this.saldo);
 
     }
 }
