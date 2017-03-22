@@ -2,54 +2,70 @@ package aula03;
 
 public class Conta {
 
-    int numero;
-    Cliente titular;
-    double saldo;
+    private int numero;
+    private double saldo;
+    private Cliente titular;
+    private static int totalDeContas;
 
-    void visualizarSaldo() {
-
-        System.out.println("Saldo=" + this.saldo);
-
+    public void visualizarSaldo() {
+        System.out.println("Saldo = " + this.saldo);
     }
 
-    void depositar(double valor) {
-
+    public void depositar(double valor) {
         if (valor > 0) {
-
             this.saldo = this.saldo + valor;
-
         }
-
     }
 
-    boolean sacar(double value) {
-
-        if (value <= this.saldo) {
+    public boolean sacar(double value) {
+        if (this.saldo < value) {
+            return false;
+        } else {
             this.saldo = this.saldo - value;
             return true;
-        } else {
-            return false;
         }
-
     }
 
-    void transferirPara(double valor, Conta n) {
-
-        if (valor <= this.saldo) {
+    public void transferirPara(double valor, Conta c) {
+        if (this.saldo >= valor) {
             this.saldo = this.saldo - valor;
-            n.saldo = n.saldo + valor;
-            System.out.println("Transferido!");
+            c.saldo = c.saldo + valor;
+            System.out.println("Transferencia realizada com sucesso");
         } else {
-            System.out.println("Você não tem dinheiro!");
+            System.out.println("Nao foi possivel");
         }
+    }
+
+    public Conta(int numero, double saldo, String nome, String sobrenome, String cpf) {
+
+        this.numero = numero;
+        this.saldo = saldo;
+        this.titular = new Cliente();
+        this.titular.cliente(nome, sobrenome, cpf);
+        Conta.totalDeContas = Conta.totalDeContas + 1;
 
     }
     
-    void visualizarConta() {
-
-        this.titular.visualizarCliente();
-        System.out.println("Número da Conta: " + this.numero);
-        System.out.println("Saldo= " + this.saldo);
-
+    public double getSaldo(){
+    
+        return this.saldo;
+    
     }
+    
+    public void visualizarCliente() {
+        System.out.println("Cliente: " + this.titular.getNome() + " " + this.titular.getSobrenome());
+        System.out.println("CPF: " + this.titular.getCpf());
+    }
+    
+    public double getTotalDeContas(){
+    
+        return Conta.totalDeContas;
+    
+    }
+    
+    public void alterarCPF(String cpf) {
+       this.titular.mudarCPF(cpf);
+        
+    }
+    
 }
